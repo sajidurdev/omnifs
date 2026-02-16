@@ -19,10 +19,26 @@ on:
 
 permissions:
   contents: read
+  id-token: write
 
 jobs:
+  cargo-audit:
+    name: Cargo Audit
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Run RustSec audit check
+        uses: actions-rust-lang/audit@v1
+        with:
+          workingDirectory: rust-core
+
   build-target:
     name: ${{ matrix.platform_arch_abi }}
+    needs:
+      - cargo-audit
     runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
@@ -98,6 +114,7 @@ jobs:
             "--manifest-path", "rust-core/Cargo.toml",
             "--target", "${{ matrix.target }}",
             "--platform",
+            "--strip",
             "--release"
           )
 
@@ -121,13 +138,19 @@ jobs:
           }
 
           New-Item -ItemType Directory -Path ".artifacts" -Force | Out-Null
-          Copy-Item $match.FullName (Join-Path ".artifacts" $expected) -Force
+          $artifactPath = Join-Path ".artifacts" $expected
+          Copy-Item $match.FullName $artifactPath -Force
+
+          $hash = (Get-FileHash -Path $artifactPath -Algorithm SHA256).Hash.ToLower()
+          "$hash  $expected" | Out-File -FilePath "$artifactPath.sha256" -Encoding ascii -NoNewline
 
       - name: Upload target artifact
         uses: actions/upload-artifact@v4
         with:
           name: native-${{ matrix.platform_arch_abi }}
-          path: .artifacts/index.${{ matrix.platform_arch_abi }}.node
+          path: |
+            .artifacts/index.${{ matrix.platform_arch_abi }}.node
+            .artifacts/index.${{ matrix.platform_arch_abi }}.node.sha256
           if-no-files-found: error
 
   assemble-npm-target-layout:
@@ -157,6 +180,30 @@ jobs:
           pattern: native-*
           path: .artifacts
           merge-multiple: true
+
+      - name: Verify artifact checksums
+        shell: bash
+        run: |
+          set -euo pipefail
+          targets=(
+            "darwin-x64"
+            "darwin-arm64"
+            "linux-x64-gnu"
+            "linux-x64-musl"
+            "linux-arm64-gnu"
+            "linux-arm64-musl"
+            "win32-x64-msvc"
+            "win32-arm64-msvc"
+          )
+
+          for t in "${targets[@]}"; do
+            checksum_file=".artifacts/index.${t}.node.sha256"
+            if [[ ! -f "$checksum_file" ]]; then
+              echo "Missing checksum file: $checksum_file"
+              exit 1
+            fi
+            (cd .artifacts && sha256sum -c "index.${t}.node.sha256")
+          done
 
       - name: Populate npm/<target> with binaries
         run: npm run napi:artifacts -- --output-dir .artifacts

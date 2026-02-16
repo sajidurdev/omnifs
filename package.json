@@ -73,6 +73,8 @@
     "napi:prepublish": "napi pre-publish --npm-dir npm --tag-style npm --no-gh-release --skip-optional-publish",
     "verify:pack": "node scripts/verify-pack.cjs",
     "release:check": "npm run build && npm run verify:pack",
+    "publish:provenance": "npm publish --access public --provenance",
+    "publish:target:provenance": "npm publish --access public --provenance",
     "prepack": "npm run build:js && npm run build:esm",
     "prepublishOnly": "npm run napi:prepublish && npm run release:check"
   },
