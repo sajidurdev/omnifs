@@ -1,0 +1,47 @@
+{
+  "name": "omnifs-win32-x64-msvc",
+  "version": "0.1.0",
+  "cpu": [
+    "x64"
+  ],
+  "main": "index.win32-x64-msvc.node",
+  "files": [
+    "index.win32-x64-msvc.node"
+  ],
+  "description": "Rust-backed filesystem discovery engine for Node.js focused on streaming traversal, incremental rescans, and scalable directory indexing.",
+  "keywords": [
+    "filesystem",
+    "file-walker",
+    "file-discovery",
+    "glob",
+    "gitignore",
+    "crawler",
+    "directory-traversal",
+    "async-iterator",
+    "streaming",
+    "incremental-scan",
+    "monorepo",
+    "indexing",
+    "napi",
+    "rust",
+    "nodejs"
+  ],
+  "homepage": "https://github.com/sajidurdev/omnifs#readme",
+  "license": "MIT",
+  "engines": {
+    "node": ">=20"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sajidurdev/omnifs.git"
+  },
+  "bugs": {
+    "url": "https://github.com/sajidurdev/omnifs/issues"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "os": [
+    "win32"
+  ]
+}

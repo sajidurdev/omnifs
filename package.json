@@ -1,0 +1,94 @@
+{
+  "name": "omnifs",
+  "version": "0.1.0",
+  "description": "Rust-backed filesystem discovery engine for Node.js focused on streaming traversal, incremental rescans, and scalable directory indexing.",
+  "homepage": "https://github.com/sajidurdev/omnifs#readme",
+  "bugs": {
+    "url": "https://github.com/sajidurdev/omnifs/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sajidurdev/omnifs.git"
+  },
+  "license": "MIT",
+  "keywords": [
+    "filesystem",
+    "file-walker",
+    "file-discovery",
+    "glob",
+    "gitignore",
+    "crawler",
+    "directory-traversal",
+    "async-iterator",
+    "streaming",
+    "incremental-scan",
+    "monorepo",
+    "indexing",
+    "napi",
+    "rust",
+    "nodejs"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "type": "commonjs",
+  "sideEffects": false,
+  "main": "dist/js/index.js",
+  "types": "dist/js/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/js/index.d.ts",
+      "import": "./dist/esm/index.mjs",
+      "require": "./dist/js/index.js",
+      "default": "./dist/js/index.js"
+    }
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "files": [
+    "dist"
+  ],
+  "napi": {
+    "binaryName": "index",
+    "targets": [
+      "x86_64-apple-darwin",
+      "aarch64-apple-darwin",
+      "x86_64-pc-windows-msvc",
+      "aarch64-pc-windows-msvc",
+      "x86_64-unknown-linux-gnu",
+      "x86_64-unknown-linux-musl",
+      "aarch64-unknown-linux-gnu",
+      "aarch64-unknown-linux-musl"
+    ]
+  },
+  "scripts": {
+    "build:native": "napi build --manifest-path rust-core/Cargo.toml --release",
+    "build:native:platform": "napi build --manifest-path rust-core/Cargo.toml --platform --release",
+    "build:js": "tsc -p tsconfig.json",
+    "build:esm": "node scripts/build-esm-wrapper.cjs",
+    "build": "npm run build:native && npm run build:js && npm run build:esm",
+    "napi:create-npm-dirs": "napi create-npm-dirs --npm-dir npm",
+    "napi:artifacts": "napi artifacts --npm-dir npm",
+    "napi:prepublish": "napi pre-publish --npm-dir npm --tag-style npm --no-gh-release --skip-optional-publish",
+    "verify:pack": "node scripts/verify-pack.cjs",
+    "release:check": "npm run build && npm run verify:pack",
+    "prepack": "npm run build:js && npm run build:esm",
+    "prepublishOnly": "npm run napi:prepublish && npm run release:check"
+  },
+  "optionalDependencies": {
+    "omnifs-darwin-x64": "0.1.0",
+    "omnifs-darwin-arm64": "0.1.0",
+    "omnifs-win32-x64-msvc": "0.1.0",
+    "omnifs-win32-arm64-msvc": "0.1.0",
+    "omnifs-linux-x64-gnu": "0.1.0",
+    "omnifs-linux-x64-musl": "0.1.0",
+    "omnifs-linux-arm64-gnu": "0.1.0",
+    "omnifs-linux-arm64-musl": "0.1.0"
+  },
+  "devDependencies": {
+    "@napi-rs/cli": "^3.5.1",
+    "@types/node": "^25.2.3",
+    "typescript": "^5.9.3"
+  }
+}
