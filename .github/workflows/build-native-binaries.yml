@@ -44,7 +44,7 @@ jobs:
             target: aarch64-unknown-linux-musl
             platform_arch_abi: linux-arm64-musl
             use_cross: true
-          - os: macos-13
+          - os: macos-14
             target: x86_64-apple-darwin
             platform_arch_abi: darwin-x64
             use_cross: false
