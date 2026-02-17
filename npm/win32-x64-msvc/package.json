@@ -1,5 +1,5 @@
 {
-  "name": "omnifs-win32-x64-msvc",
+  "name": "@omnifs/win32-x64-msvc",
   "version": "0.1.0",
   "cpu": [
     "x64"

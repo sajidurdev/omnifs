@@ -9,7 +9,7 @@ export type NativeBinding = {
   closeDiscovery(sessionId: number): void;
 };
 
-const PACKAGE_NAME = "omnifs";
+const PLATFORM_SCOPE = "@omnifs";
 
 function isFileMusl(file: string): boolean {
   return file.includes("libc.musl-") || file.includes("ld-musl-");
@@ -137,7 +137,7 @@ function loadFromPublishedPackage(loadErrors: unknown[]): NativeBinding | null {
     return null;
   }
 
-  return tryRequire<NativeBinding>(`${PACKAGE_NAME}-${tuple}`, loadErrors);
+  return tryRequire<NativeBinding>(`${PLATFORM_SCOPE}/${tuple}`, loadErrors);
 }
 
 export function loadNativeBinding(): NativeBinding {

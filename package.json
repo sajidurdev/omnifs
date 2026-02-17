@@ -68,9 +68,9 @@
     "build:js": "tsc -p tsconfig.json",
     "build:esm": "node scripts/build-esm-wrapper.cjs",
     "build": "npm run build:native && npm run build:js && npm run build:esm",
-    "napi:create-npm-dirs": "napi create-npm-dirs --npm-dir npm",
+    "napi:create-npm-dirs": "napi create-npm-dirs --npm-dir npm && node scripts/scope-platform-packages.cjs",
     "napi:artifacts": "napi artifacts --npm-dir npm",
-    "napi:prepublish": "napi pre-publish --npm-dir npm --tag-style npm --no-gh-release --skip-optional-publish",
+    "napi:prepublish": "napi pre-publish --npm-dir npm --tag-style npm --no-gh-release --skip-optional-publish && node scripts/scope-platform-packages.cjs",
     "verify:pack": "node scripts/verify-pack.cjs",
     "release:check": "npm run build && npm run verify:pack",
     "publish:provenance": "npm publish --access public --provenance",
@@ -79,14 +79,14 @@
     "prepublishOnly": "npm run napi:prepublish && npm run release:check"
   },
   "optionalDependencies": {
-    "omnifs-darwin-x64": "0.1.0",
-    "omnifs-darwin-arm64": "0.1.0",
-    "omnifs-win32-x64-msvc": "0.1.0",
-    "omnifs-win32-arm64-msvc": "0.1.0",
-    "omnifs-linux-x64-gnu": "0.1.0",
-    "omnifs-linux-x64-musl": "0.1.0",
-    "omnifs-linux-arm64-gnu": "0.1.0",
-    "omnifs-linux-arm64-musl": "0.1.0"
+    "@omnifs/linux-x64-gnu": "0.1.0",
+    "@omnifs/linux-x64-musl": "0.1.0",
+    "@omnifs/linux-arm64-gnu": "0.1.0",
+    "@omnifs/linux-arm64-musl": "0.1.0",
+    "@omnifs/darwin-x64": "0.1.0",
+    "@omnifs/darwin-arm64": "0.1.0",
+    "@omnifs/win32-x64-msvc": "0.1.0",
+    "@omnifs/win32-arm64-msvc": "0.1.0"
   },
   "devDependencies": {
     "@napi-rs/cli": "^3.5.1",

@@ -1,5 +1,5 @@
 {
-  "name": "omnifs-darwin-arm64",
+  "name": "@omnifs/darwin-arm64",
   "version": "0.1.0",
   "cpu": [
     "arm64"

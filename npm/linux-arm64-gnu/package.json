@@ -1,5 +1,5 @@
 {
-  "name": "omnifs-linux-arm64-gnu",
+  "name": "@omnifs/linux-arm64-gnu",
   "version": "0.1.0",
   "cpu": [
     "arm64"

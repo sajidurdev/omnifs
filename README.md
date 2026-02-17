@@ -1,4 +1,4 @@
-﻿# <p align="center">omnifs</p>
+﻿﻿# <p align="center">OmniFS</p>
 
 <p align="center">
   <b>High-performance filesystem discovery engine for Node.js.</b><br>
@@ -6,10 +6,27 @@
 </p>
 
 <p align="center">
-  <a href="https://www.npmjs.com/package/omnifs"><img src="https://img.shields.io/npm/v/omnifs?style=flat-square&color=CB3837" alt="NPM Version"></a>
-  <a href="https://github.com/sajidurdev/omnifs/blob/main/LICENSE"><img src="https://img.shields.io/npm/l/omnifs?style=flat-square&color=blue" alt="License"></a>
-  <a href="https://nodejs.org"><img src="https://img.shields.io/badge/node-%3E%3D20-green?style=flat-square&logo=node.js" alt="Node.js Support"></a>
-  <a href="https://www.typescriptlang.org/"><img src="https://img.shields.io/badge/TypeScript-Ready-blue?style=flat-square&logo=typescript" alt="TypeScript Ready"></a>
+  <a href="https://www.npmjs.com/package/omnifs">
+    <img src="https://img.shields.io/npm/v/omnifs?style=for-the-badge&color=CB3837" alt="NPM Version">
+  </a>
+  <a href="https://github.com/sajidurdev/omnifs/actions/workflows/build-native-binaries.yml">
+    <img src="https://img.shields.io/github/actions/workflow/status/sajidurdev/omnifs/build-native-binaries.yml?style=for-the-badge&label=build" alt="Build Status">
+  </a>
+  <a href="https://nodejs.org">
+    <img src="https://img.shields.io/badge/node-%3E%3D20-339933?style=for-the-badge&logo=node.js&logoColor=white" alt="Node.js Support">
+  </a>
+</p>
+
+<p align="center">
+  <a href="https://www.typescriptlang.org/">
+    <img src="https://img.shields.io/badge/TypeScript-Ready-3178C6?style=for-the-badge&logo=typescript&logoColor=white" alt="TypeScript Ready">
+  </a>
+  <a href="https://security.google.com/software-supply-chain-integrity/">
+    <img src="https://img.shields.io/badge/NPM-PROVENANCE-008000?style=for-the-badge&logo=npm" alt="NPM Provenance">
+  </a>
+  <a href="https://github.com/sajidurdev/omnifs/blob/main/LICENSE">
+    <img src="https://img.shields.io/npm/l/omnifs?style=for-the-badge&color=007ec6" alt="License">
+  </a>
 </p>
 
 ---

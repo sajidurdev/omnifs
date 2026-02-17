@@ -299,11 +299,31 @@ jobs:
           )
 
           for t in "${targets[@]}"; do
-            echo "Publishing omnifs-$t ..."
+            pkg="npm/$t/package.json"
+            name=$(node -p "require('./${pkg}').name")
+            version=$(node -p "require('./${pkg}').version")
+
+            if npm view "${name}@${version}" version >/dev/null 2>&1; then
+              echo "Skipping ${name}@${version} (already published)"
+              continue
+            fi
+
+            echo "Publishing ${name}@${version} ..."
             (cd "npm/$t" && npm publish --access public --provenance)
           done
 
       - name: Publish root package with provenance
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-        run: npm publish --access public --provenance
+        shell: bash
+        run: |
+          set -euo pipefail
+          name=$(node -p "require('./package.json').name")
+          version=$(node -p "require('./package.json').version")
+
+          if npm view "${name}@${version}" version >/dev/null 2>&1; then
+            echo "Skipping ${name}@${version} (already published)"
+            exit 0
+          fi
+
+          npm publish --access public --provenance
